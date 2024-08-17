@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVESTMENT-DOC</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="heading">
+        <h2 class="new">DATE: <span class="live-date-time"></span></h2>
+        <h1 class="h11">INVESTMENT-DOC</h1>
+    </div>
+    <div class="amount">
+        <p class="h21">IST: <span class="ist-time">Loading...</span></p>
+    </div>
+    <div class="para">
+        <p>FOLLOWING ARE SOME OF THE LEADING STOCKS.</p>
+    </div> 
+    <div class="container">
+        <div class="coin-price">
+            <div class="logo"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEi32rDKQR2Swi7YfHjDzyZUBGEmxTz77OClnm24SZl7kWuls7fsVCIfAObY_JRJIReQnBWZIPSVfDLSqDvqeu4CCXCoNQIoUGK-OSDUGMtDJFxh9vmU6WGajIgXH4CsR_-sXU0qWbyJTJl7N0BSTB8HcAGSpCJ54G1daZPnU6h2oANo2CTGsbHCoaGJHQ" alt="Bitcoin"></div>
+            <div>
+                <h1>$<span id="bitcoin"></span></h1>
+                <h1 class="name">Bitcoin</h1>
+            </div>
+        </div>
+        <div class="coin-price">
+            <div class="logo"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEhrUFoHC68rLHQYMV41awqGtoeU6qI-CkSVmcYK-KBCrOvL-jzwLOx8pN-5B8aALsHh1Zc9mmDm8LVQSSpdpsw0v6vrJsv4r9_lv0ic5aYbogc3i3h9mG6ZGMc7g9_cGSRh_soaKmXtpMEOxBFIsmiTa_wticu9T07MbqQ42J9NwowHp8tn8OUIBlhjqA" alt="Litecoin"></div>
+            <div>
+                <h1>$<span id="litecoin"></span></h1>
+                <h1 class="name">Litecoin</h1>
+            </div>
+        </div>
+        <div class="coin-price">
+            <div class="logo"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEgfcodOJm7ZIXw2kiqdo5abN4cUvFYgyqpKt91zHI8710ltPK5Ny_S5X93w9LSDsF5jW61frn3C8a_8w2GXu4bf0clzxuJljoQ8n6az5EI5zQOcl5W2LScP-1-41NQwPW5A3JWT9EwejtOnHsd3q2-llUsJJQ3Z74v_2FOPn0TrI2529NS9_hmFbvModw" alt="Ethereum"></div>
+            <div>
+                <h1>$<span id="ethereum"></span></h1>
+                <h1 class="name">Ethereum</h1>
+            </div>
+        </div>
+        <div class="coin-price">
+            <div class="logo"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEj9YzGIFUSMpRoWE4IjGl_o2zpdPkvtUS6jzIgZWEWl7ztYyV20oXu80A52v0R_nXpt_qXVBzxnfse2_pfeIbVHwQSR3oLqqAyMqVqnzJpdbSCBHA2b_zlheiLY3Bb0PYCEXQny7q-FnGE01ZtxVFVC8DbLWW-ZC1PC-gaqL7IC7ZfRxFOZufcv8lcY1g" alt="Dogecoin"></div>
+            <div>
+                <h1>$<span id="dogecoin"></span></h1>
+                <h1 class="name">Dogecoin</h1>
+            </div>
+        </div>
+    </div>
+    
+        
+    </div>
+    <div class="stock-data">
+        <h2>Intraday Stock Data</h2>
+        <input type="text" id="stock-symbol" placeholder="Enter stock symbol">
+        <input type="text" id="interval" placeholder="Enter interval (e.g., 1min)">
+        <button onclick="fetchStockData()">Get Stock Data</button>
+        <div id="stock-data-container"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to update IST time
+        function updateISTTime() {
+            const istTimeElement = document.querySelector('.ist-time');
+            const date = new Date();
+            const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            istTimeElement.textContent = new Intl.DateTimeFormat('en-US', options).format(date);
+        }
+
+        // Function to update live date and time
+        function updateLiveDateTime() {
+            const liveDateTimeElement = document.querySelector('.live-date-time');
+            const date = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            liveDateTimeElement.textContent = new Intl.DateTimeFormat('en-US', options).format(date);
+        }
+
+        // Update the date and time every second
+        setInterval(updateISTTime, 1000);
+        setInterval(updateLiveDateTime, 1000);
+
+        // Initial call to display the date and time immediately on load
+        updateISTTime();
+        updateLiveDateTime();
+
+        var cryptoIds = ["bitcoin", "litecoin", "ethereum", "dogecoin"];
+        var elements = {};
+        cryptoIds.forEach(id => {
+            elements[id] = document.getElementById(id);
+        });
+
+        var liveprice = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Clitecoin%2Cethereum%2Cdogecoin&vs_currencies=usd",
+            "method": "GET",
+            "headers": {}
+        };
+
+        $.ajax(liveprice).done(function(response) {
+            elements.bitcoin.innerHTML = response.bitcoin.usd;
+            elements.litecoin.innerHTML = response.litecoin.usd;
+            elements.ethereum.innerHTML = response.ethereum.usd;
+            elements.dogecoin.innerHTML = response.dogecoin.usd;
+        });
+
+        async function fetchIntradayStockData(symbol, apiKey, interval='1min') {
+            const functionType = 'TIME_SERIES_INTRADAY';
+            const url = `https://www.alphavantage.co/query?function=${functionType}&symbol=${symbol}&interval=${interval}&apikey=${apiKey}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data["Error Message"]) {
+                    console.log(`Error fetching data for symbol: ${symbol}`);
+                    return null;
+                }
+
+                const metaData = data['Meta Data'];
+                const timeSeriesKey = `Time Series (${interval})`;
+                const timeSeries = data[timeSeriesKey];
+
+                const df = Object.keys(timeSeries).map(key => {
+                    return {
+                        date: key,
+                        open: parseFloat(timeSeries[key]['1. open']),
+                        high: parseFloat(timeSeries[key]['2. high']),
+                        low: parseFloat(timeSeries[key]['3. low']),
+                        close: parseFloat(timeSeries[key]['4. close']),
+                        volume: parseInt(timeSeries[key]['5. volume'])
+                    };
+                });
+
+                return { metaData, df };
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
+        }
+
+        function displayIntradayStockData(metaData, df) {
+            const container = document.getElementById('stock-data-container');
+            container.innerHTML = `
+                <h2>Alpha Vantage real-time stock price data</h2>
+                <h3>${metaData['1. Information']}</h3>
+                <h4>Symbol: ${metaData['2. Symbol']}</h4>
+                <h4>Last update: ${metaData['3. Last Refreshed']}</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Open</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Close</th>
+                            <th>Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${df.map(row => `
+                            <tr>
+                                <td>${row.date}</td>
+                                <td>${row.open}</td>
+                                <td>${row.high}</td>
+                                <td>${row.low}</td>
+                                <td>${row.close}</td>
+                                <td>${row.volume}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function fetchStockData() {
+            const symbol = document.getElementById('stock-symbol').value;
+            const interval = document.getElementById('interval').value || '1min';
+            const apiKey = 'IJCNQX75O1WKHJ2S'; 
+
+            fetchIntradayStockData(symbol, apiKey, interval).then(data => {
+                if (data) {
+                    displayIntradayStockData(data.metaData, data.df);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

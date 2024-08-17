@@ -1,0 +1,139 @@
+
+body {
+    background-color: rgb(10, 10, 54);
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    min-height: 100vh; /* Ensure the body takes at least full viewport height */
+    display: flex;/* Prevent image repetition */ /* Center the background image */
+    
+    flex-direction: column;
+}
+.h11 {
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    /* Centering text horizontally and vertically */
+     /* Centers items horizontally */
+    /* Centers items vertically */
+    
+    padding-left: 50rem;
+    font-size: xx-large; /* Optional: Make the container full height of the viewport */
+    
+}
+.new{
+    color: aquamarine;
+    font-weight: bolder;
+    /* Centering text horizontally and vertically */
+     /* Centers items horizontally */
+     /* Centers items vertically */
+    /* Optional: Make the container full height of the viewport */
+    text-align: left;
+    padding-left: 100rem;margin: 0;
+}
+
+.amount{
+    color: aliceblue;
+    margin: 20px;
+    margin-inline: 1rem;
+    font-size: large;
+    color: aquamarine;
+    font-weight: bold;
+    }
+
+.para{
+    color: rgb(189, 165, 198);
+    align-self: center;
+    font-size: medium;
+    font-weight: 500;
+    
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    gap: 10rem;
+}
+.container .coin-price{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #ccc;
+    margin: 7px;
+    margin-bottom: 50px;
+}
+
+.container .coin-price .logo{
+    width: 70px;
+    margin-right: 10px;
+}
+.container .coin-price .logo img{
+    width: 100%;
+}
+.container .coin-price div{
+    display: block;
+    width: 150px; /* Fixed width */
+    height: 100px; /* Fixed height */
+   /* Light background color */
+    /* Border for the box */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for effect */
+    font-size: 16px; /* Font size for content */
+    color: #cbb153;
+    
+}
+.container .coin-price div h1{
+    font-size: 20px;
+}
+.name{
+    color: #ccc;
+}
+
+.stock-data {
+    background-color: rgb(10, 10, 54);
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stock-data h2 {
+    color: rgb(171, 151, 56);
+    margin-bottom: 20px;
+}
+
+.stock-data input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.stock-data button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: rgb(106, 16, 154);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.stock-data button:hover {
+    background-color: rgb(20, 20, 74);
+}
+
+#stock-data-container {
+    margin-top: 20px;
+    color: black;
+}
